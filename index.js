@@ -38,7 +38,7 @@ module.exports = function ChannelCommand(dispatch) {
 		})
 	}
 	
-	// slash support
+	// slash support, thanks to wuaw for snippet
 	try {
 		const Slash = require('slash')
 		const slash = new Slash(dispatch)
