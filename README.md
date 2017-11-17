@@ -11,7 +11,7 @@ tera-proxy module to change channel via chat
 - Select channel `num`, where `num` is the channel number
 
 ## Info
-- Author : [teralove](https://github.com/teralove)
+- Original author : [teralove](https://github.com/teralove)
 - "Changing channels while inside a dungeon will teleport you out"
 - "Changing to a channel number that doesn't exist will send you to channel 1"
 
