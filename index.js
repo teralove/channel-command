@@ -2,6 +2,8 @@
 // - C_SELECT_CHANNEL
 // - S_CURRENT_CHANNEL
 
+// Version 1.2 r:01
+
 module.exports = function ChannelCommand(dispatch) {
 	
 	let currentChannel = 0
@@ -10,7 +12,7 @@ module.exports = function ChannelCommand(dispatch) {
 	try {
 		const Command = require('command')
 		const command = Command(dispatch)
-		command.add(['channel', 'ch', 'c'], (num) => { 
+		command.add(['channel', 'ch', 'c', 'ㅊ'], (num) => { 
 			if (isNaN(num)) {
 				send(`<font color="#FF0000">Invalid argument.</font>`)
 			} else {
