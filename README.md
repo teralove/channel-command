@@ -15,7 +15,9 @@ tera-proxy module to change channel via chat
 - "Changing channels while inside a dungeon will teleport you out"
 - "Changing to a channel number that doesn't exist will send you to channel 1"
 
-## Changelog 
+## Changelog
+### 1.3
+- Updated code aesthetics
 ### 1.2
 - Updated code
 - Removed protocol version restriction
