@@ -2,30 +2,20 @@
 // - C_SELECT_CHANNEL
 // - S_CURRENT_CHANNEL
 
-// Version 1.2 r:01
+// Version 1.3 r:01
 
-module.exports = function ChannelCommand(dispatch) {
-	
+module.exports = function ChannelCommand(d) {
+
 	let currentChannel = 0
-	
-	// command
-	try {
-		const Command = require('command')
-		const command = Command(dispatch)
-		command.add(['channel', 'ch', 'c', 'ㅊ'], (num) => { 
-			if (isNaN(num)) {
-				send(`<font color="#FF0000">Invalid argument.</font>`)
-			} else {
-				changeChannel(num)
-			}
-		})
-	} catch (e) {
-		console.log(`[ERROR] -- channel-command module --`)
-	}
 
 	// code
-	dispatch.hook('S_CURRENT_CHANNEL', (event) => { currentChannel = event })
-	
+	d.hook('S_CURRENT_CHANNEL', (e) => { currentChannel = e })
+
+	d.hook('S_PREPARE_SELECT_CHANNEL', (e) => {
+		e.seconds = 0
+		return true
+	})
+
 	// helper
 	function changeChannel(newChannel) {
 		// If the current channel is absurdly high, then it's probably an instance id and the the player is in an instance.
@@ -36,11 +26,29 @@ module.exports = function ChannelCommand(dispatch) {
 		// decrement by 1, because C_SELECT_CHANNEL identifies channel 1 as 0
 		newChannel -= 1
 
-		dispatch.toServer('C_SELECT_CHANNEL', {
+		d.toServer('C_SELECT_CHANNEL', {
 			unk: 1,
 			zone: currentChannel.zone,
 			channel: newChannel
 		})
 	}
-	
+
+	// command
+	try {
+		const Command = require('command')
+		const command = Command(d)
+		command.add(['channel', 'ch', 'c', 'ㅊ'], (num) => {
+			if (isNaN(num)) {
+				send(`<font color="#FF0000">Invalid argument.</font>`)
+			} else {
+				changeChannel(num)
+			}
+		})
+		function send(msg) {
+			command.message(`[camera-distance] : ` + msg)
+		}
+	} catch (e) {
+		console.log(`[ERROR] -- channel-command module --`)
+	}
+
 }
