@@ -2,7 +2,7 @@
 // - C_SELECT_CHANNEL
 // - S_CURRENT_CHANNEL
 
-// Version 1.3 r:01
+// Version 1.31 r:00
 
 module.exports = function ChannelCommand(d) {
 
@@ -10,11 +10,6 @@ module.exports = function ChannelCommand(d) {
 
 	// code
 	d.hook('S_CURRENT_CHANNEL', (e) => { currentChannel = e })
-
-	d.hook('S_PREPARE_SELECT_CHANNEL', (e) => {
-		e.seconds = 0
-		return true
-	})
 
 	// helper
 	function changeChannel(newChannel) {
