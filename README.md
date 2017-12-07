@@ -17,6 +17,8 @@ tera-proxy module to change channel via chat
 
 ## Changelog
 ### 1.3
+- Removed unnecessary hook
+### 1.3
 - Updated code aesthetics
 ### 1.2
 - Updated code
