@@ -2,7 +2,7 @@
 // - C_SELECT_CHANNEL
 // - S_CURRENT_CHANNEL
 
-// Version 1.31 r:00
+// Version 1.32 r:00
 
 module.exports = function ChannelCommand(d) {
 
@@ -16,8 +16,6 @@ module.exports = function ChannelCommand(d) {
 		// If the current channel is absurdly high, then it's probably an instance id and the the player is in an instance.
 		// Changing channels inside an instance will teleport the player out to the entrance/teleportal of the instance.
 		if (currentChannel.channel > 20) return
-		// proceed if the argument is a number.
-		//if (isNaN(newChannel)) return
 		// decrement by 1, because C_SELECT_CHANNEL identifies channel 1 as 0
 		newChannel -= 1
 
@@ -39,11 +37,7 @@ module.exports = function ChannelCommand(d) {
 				changeChannel(num)
 			}
 		})
-		function send(msg) {
-			command.message(`[camera-distance] : ` + msg)
-		}
-	} catch (e) {
-		console.log(`[ERROR] -- channel-command module --`)
-	}
+		function send(msg) { command.message(`[camera-distance] : ` + msg) }
+	} catch (e) { console.log(`[ERROR] -- channel-command module --`) }
 
 }
