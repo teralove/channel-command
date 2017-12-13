@@ -2,7 +2,7 @@
 // - C_SELECT_CHANNEL
 // - S_CURRENT_CHANNEL
 
-// Version 1.32 r:00
+// Version 1.33 r:00
 
 module.exports = function ChannelCommand(d) {
 
@@ -13,10 +13,9 @@ module.exports = function ChannelCommand(d) {
 
 	// helper
 	function changeChannel(newChannel) {
-		// If the current channel is absurdly high, then it's probably an instance id and the the player is in an instance.
-		// Changing channels inside an instance will teleport the player out to the entrance/teleportal of the instance.
+		// in case of dungeon/instance
 		if (currentChannel.channel > 20) return
-		// decrement by 1, because C_SELECT_CHANNEL identifies channel 1 as 0
+		// index starts at 0
 		newChannel -= 1
 
 		d.toServer('C_SELECT_CHANNEL', {
@@ -31,13 +30,13 @@ module.exports = function ChannelCommand(d) {
 		const Command = require('command')
 		const command = Command(d)
 		command.add(['channel', 'ch', 'c', 'ㅊ'], (num) => {
-			if (isNaN(num)) {
-				send(`<font color="#FF0000">Invalid argument.</font>`)
-			} else {
-				changeChannel(num)
-			}
+			if (!isNaN(num)) changeChannel(num)
+			else send(`Invalid argument.`.clr('FF0000'))
 		})
 		function send(msg) { command.message(`[camera-distance] : ` + msg) }
 	} catch (e) { console.log(`[ERROR] -- channel-command module --`) }
 
 }
+
+// credit : https://github.com/Some-AV-Popo
+String.prototype.clr = function (hexColor) { return `<font color="#${hexColor}">${this}</font>` }
