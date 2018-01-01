@@ -1,4 +1,4 @@
-# channel-command
+# command-channel
 tera-proxy module to change channel via chat
 
 ## Dependency
@@ -16,6 +16,8 @@ tera-proxy module to change channel via chat
 - "Changing to a channel number that doesn't exist will send you to channel 1"
 
 ## Changelog
+### 1.34
+- Updated name
 ### 1.33
 - Updated code
 - Added string function
