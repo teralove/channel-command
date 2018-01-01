@@ -2,14 +2,15 @@
 // - C_SELECT_CHANNEL
 // - S_CURRENT_CHANNEL
 
-// Version 1.33 r:00
+// Version 1.34 r:00
 
-module.exports = function ChannelCommand(d) {
+module.exports = function CommandChannel(d) {
 
 	let currentChannel = 0
 
 	// code
 	d.hook('S_CURRENT_CHANNEL', (e) => { currentChannel = e })
+	d.hook('S_PREPARE_SELECT_CHANNEL', (e) => { e.seconds = 0; return true })
 
 	// helper
 	function changeChannel(newChannel) {
@@ -33,8 +34,8 @@ module.exports = function ChannelCommand(d) {
 			if (!isNaN(num)) changeChannel(num)
 			else send(`Invalid argument.`.clr('FF0000'))
 		})
-		function send(msg) { command.message(`[camera-distance] : ` + msg) }
-	} catch (e) { console.log(`[ERROR] -- channel-command module --`) }
+		function send(msg) { command.message(`[command-channel] : ` + [...arguments].join('\n\t - ')) }
+	} catch (e) { console.log(`[ERROR] -- command-channel module --`) }
 
 }
 
