@@ -2,7 +2,7 @@
 // - C_SELECT_CHANNEL
 // - S_CURRENT_CHANNEL
 
-// Version 1.34 r:00
+// Version 1.34 r:01
 
 module.exports = function CommandChannel(d) {
 
