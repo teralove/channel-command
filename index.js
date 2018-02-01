@@ -2,15 +2,15 @@
 // - C_SELECT_CHANNEL
 // - S_CURRENT_CHANNEL
 
-// Version 1.34 r:01
+// Version 1.34 r:02
 
-module.exports = function CommandChannel(d) {
+module.exports = function CmdChannel(d) {
 
 	let currentChannel = 0
 
 	// code
 	d.hook('S_CURRENT_CHANNEL', (e) => { currentChannel = e })
-	d.hook('S_PREPARE_SELECT_CHANNEL', (e) => { e.seconds = 0; return true })
+	//d.hook('S_PREPARE_SELECT_CHANNEL', (e) => { e.seconds = 0; return true })
 
 	// helper
 	function changeChannel(newChannel) {
@@ -34,8 +34,8 @@ module.exports = function CommandChannel(d) {
 			if (!isNaN(num)) changeChannel(num)
 			else send(`Invalid argument.`.clr('FF0000'))
 		})
-		function send(msg) { command.message(`[command-channel] : ` + [...arguments].join('\n\t - ')) }
-	} catch (e) { console.log(`[ERROR] -- command-channel module --`) }
+		function send(msg) { command.message(`[cmd-channel] : ` + [...arguments].join('\n\t - ')) }
+	} catch (e) { console.log(`[ERROR] -- cmd-channel module --`) }
 
 }
 
