@@ -2,7 +2,7 @@
 // - C_SELECT_CHANNEL
 // - S_CURRENT_CHANNEL
 
-// Version 1.34 r:02
+// Version 1.35 r:00
 
 module.exports = function CmdChannel(d) {
 
@@ -18,7 +18,11 @@ module.exports = function CmdChannel(d) {
 		if (currentChannel.channel > 20) return
 		// index starts at 0
 		newChannel -= 1
-
+		// same channel
+		if (newChannel === currentChannel.channel) {
+			send(`Same channel selected.`.clr('FF0000'))
+			return
+		}
 		d.toServer('C_SELECT_CHANNEL', {
 			unk: 1,
 			zone: currentChannel.zone,
