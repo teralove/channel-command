@@ -1,11 +1,11 @@
-# command-channel
+# cmd-channel
 tera-proxy module to change channel via chat
 
 ## Dependency
 - `Command` module
 
 ## Usage
-### `channel num` · `ch num` · `c num` · `ㅊ num`
+### `ch num` · `c num` · `ㅊ num`
 - Select channel `num`, where `num` is the channel number
 
 ## Info
@@ -16,6 +16,8 @@ tera-proxy module to change channel via chat
 ## Changelog
 <details>
 
+    1.36
+    - Added auto-update support
     1.35
     - Revised code
     1.34
