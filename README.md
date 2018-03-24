@@ -1,19 +1,45 @@
-# Channel Command
-Switch channels via chat command
+# cmd-channel
+tera-proxy module to change channel via chat
 
-### Chat commands:
-* !channel [channel_number]
-* !ch [channel_number]
-* !c [channel_number]
+## Dependency
+- `Command` module
 
-All 3 commands do the exact samething.
-Commands are not case-sensitive.
+## Usage
+### `ch num` · `c num` · `ㅊ num`
+- Select channel `num`, where `num` is the channel number
 
-[slash](https://github.com/baldera-mods/slash) is supported but not required
+## Info
+- Original author : [teralove](https://github.com/teralove)
+- "Changing channels while inside a dungeon will teleport you out"
+- "Changing to a channel number that doesn't exist will send you to channel 1"
 
-### Example:
-"!channel 3"   - Will switch you to channel 3
+## Changelog
+<details>
 
-### Things to know:
-* Changing channels while inside a dungeon will teleport you out.
-* Changing to a channel number that doesn't exist will send you to channel 1
+    1.36
+    - Added auto-update support
+    1.35
+    - Revised code
+    1.34
+    - Updated name
+    1.33
+    - Updated code
+    - Added string function
+    1.32
+    - Updated code aesthetics
+    1.31
+    - Removed unnecessary hook
+    1.30
+    - Updated code aesthetics
+    1.20
+    - Updated code
+    - Removed protocol version restriction
+    1.10
+    - Added Command Dependency
+    - Removed format
+    1.01
+    - Personalized code aesthetics
+    1.00
+    - Initial fork
+
+</details>

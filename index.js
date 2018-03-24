@@ -1,52 +1,46 @@
-//vers 1.0
+// Version 1.36 r:00
 
-const format = require('./format.js');
+const Command = require('command')
 
-module.exports = function ChannelCommand(dispatch) {
-	
-	let currentArea = null;
-		
-	dispatch.hook('S_CURRENT_CHANNEL', 1, function(event) {
-		currentArea = event;
-	});
-		
-    dispatch.hook('C_CHAT', 1, function(event) {
-		let command = format.stripTags(event.message).split(' ');
-		
-		if (['!channel', '!ch', '!c'].includes(command[0].toLowerCase()) && command.length > 1) {
-			changeChannel(parseInt(command[1]));
-			return false;
-		}
-	});	
-	
+// credit : https://github.com/Some-AV-Popo
+String.prototype.clr = function (hexColor) { return `<font color="#${hexColor}">${this}</font>` }
+
+module.exports = function CmdChannel(d) {
+	const command = Command(d)
+
+	let currentChannel = 0
+
+	// code
+	d.hook('S_CURRENT_CHANNEL', (e) => { currentChannel = e })
+
+	// helper
+	// in case of dungeon/instance, return
+	// if 0, let 0 be 10 for convenience
+	// if same channel requested, return error message
+	// channel index starts at 0, so decrement by 1
 	function changeChannel(newChannel) {
-/*
-		// If the current channel is absurdly high, then it's probably an instance id and the the player is in an instance.
-		// Changing channels inside an instance will teleportt the player out to the entrance/teleportal of the instance.
-		if (currentArea.channel > 100) return;
-*/
-		// proceed if the argument is a number.
-		if (isNaN(newChannel)) return;
-		
-		// decrement by 1, because C_SELECT_CHANNEL identifies channel 1 as 0
-		newChannel -= 1;
-				
-		dispatch.toServer('C_SELECT_CHANNEL', 1, {
+		if (currentChannel.channel > 20) return
+		if (newChannel == 0) newChannel = 10
+		if (newChannel == currentChannel.channel) {
+			send(`Same channel selected.`.clr('FF0000'))
+			return
+		}
+		newChannel -= 1
+		d.toServer('C_SELECT_CHANNEL', {
 			unk: 1,
-			zone: currentArea.zone,
-			channel: newChannel,
+			zone: currentChannel.zone,
+			channel: newChannel
 		})
 	}
-	
-	// slash support, thanks to wuaw for snippet
-	try {
-		const Slash = require('slash')
-		const slash = new Slash(dispatch)
-		slash.on('channel', args => changeChannel(parseInt(args[1])))
-		slash.on('ch', args => changeChannel(parseInt(args[1])))
-		slash.on('c', args => changeChannel(parseInt(args[1])))
-	} catch (e) {
-		// do nothing because slash is optional
-	}
+
+	// command
+	command.add(['ch', 'c', 'ㅊ'], (arg) => {
+		// change to specified channel
+		if (!isNaN(arg)) changeChannel(arg)
+		// change to next channel
+		else if (['n', 'ㅜ'].includes(arg)) changeChannel(currentChannel.channel + 1)
+		else send(`Invalid argument.`.clr('FF0000'))
+	})
+	function send(msg) { command.message(`[cmd-channel] : ` + msg) }
 
 }
