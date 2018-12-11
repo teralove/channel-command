@@ -1,4 +1,11 @@
 {
-    "servers": ["https://raw.githubusercontent.com/seraphinush-gaming/cmd-channel/master/"],
-    "supportUrl": "https://github.com/seraphinush-gaming/cmd-channel/issues"
+    "disableAutoUpdate": false,
+	"name": "channel-command",
+	"author": "teralove",
+	"description": "Change channel via chat command.",
+	"options": {
+		"niceName": "Channel Command"
+	},
+    "servers": ["https://raw.githubusercontent.com/teralove/channel-command/master/"],
+    "supportUrl": "https://github.com/teralove/channel-command/issues"
 }
